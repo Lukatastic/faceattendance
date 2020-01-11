@@ -21,6 +21,9 @@ var uploads = firebase.firestore().collection("images");
 // var faceRef = storageRef.child("face.jpeg");
 
 export class Camera extends Component {
+  state = {
+    uploadSucc: false
+  };
   setRef = (webcam) => {
     this.webcam = webcam;
   };
@@ -33,8 +36,10 @@ export class Camera extends Component {
     // alert(imageSrc);
 
     faceRef.putString(imageSrc, "data_url").then(function(snapshot) {
-      console.log("Uploaded a data_url string!");
+      //   console.log("Uploaded a data_url string!");
     });
+    this.setState({ uploadSucc: true });
+    alert("Upload successful");
     this.save(imagedesc);
   };
 
@@ -70,9 +75,18 @@ export class Camera extends Component {
         <br />
 
         <button onClick={this.capture}>Capture and Submit photo</button>
+        {/* {this.isUploadSuccessful()} */}
       </Container>
     );
   }
+  //   isUploadSuccessful = () => {
+  //     if (this.state.uploadSucc) {
+  //       //   return "Upload Successful";
+  //       alert("upload successful");
+  //     } else {
+  //       return "";
+  //     }
+  //   };
 }
 
 export default Camera;
